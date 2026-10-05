@@ -1,0 +1,192 @@
+
+Use these below words to convert this notes for revison :
+
+"This will also help you later explain your framework decisions confidently in an SDET interview, rather than just knowing what the code does."
+
+
+TEST
+ ├── What am I testing?
+ ├── What action am I performing?
+ └── What outcome do I expect?
+
+PAGE OBJECT
+ ├── How do I interact with the UI?
+ ├── Where is the username field?
+ ├── Where is the password field?
+ └── How do I perform login?
+
+ Fixtures
+ Inbuilt comes from - pytest-playwright plugin
+
+
+ | Current                       | Problem                                             | Direction                   |
+| ----------------------------- | --------------------------------------------------- | --------------------------- |
+| `base_url` inside `LoginPage` | Page object shouldn't own environment configuration | Move to config              |
+| `"standard_user"` in test     | Test data is hardcoded                              | Move to test data           |
+| `"secret_sauce"` in test      | Credential hardcoded                                | Move to test data/config    |
+| `is_logged_in()`              | Reasonable abstraction                              | Keep for now                |
+| Locators as class attributes  | Fine for this framework                             | Keep                        |
+| `navigate()`                  | Fine                                                | Later centralize navigation |
+| Assertion in test             | ✅ Correct                                           | Keep                        |
+
+
+Configuration
+    └── Where/how do I run?
+        └── base_url
+        └── browser
+        └── timeout
+        └── environment
+
+Test Data
+    └── What data does this test use?
+        └── username
+        └── password
+        └── product data
+        └── customer data
+
+Environment Configuration milestone.
+
+The problem we're solving
+
+Right now your LoginPage knows this:
+
+base_url = "https://www.saucedemo.com/"
+
+Imagine tomorrow you have:
+
+QA       → https://qa.example.com
+STAGING  → https://staging.example.com
+PROD     → https://example.com
+
+We do not want:
+
+if environment == "qa":
+    ...
+elif environment == "staging":
+    ...
+
+inside your page objects or tests.
+
+The test should ideally remain:
+
+login_page.navigate()
+login_page.login(...)
+
+while the framework determines which environment to use.
+
+Your task — design first
+
+Before I show you the implementation, answer these 3 questions:
+
+Q1. Where should the environment-specific URLs live?
+
+A. test_login.py
+B. login_page.py
+C. A dedicated configuration layer
+D. Everywhere they're needed
+
+Q2. How should the framework know whether we're running against qa or staging?
+
+For example:
+
+pytest --env=qa
+
+What do you think should happen after pytest receives --env=qa?
+
+Q3. If we later have 20 page objects, should each page object independently read the environment configuration, or should there be a centralized mechanism that provides configuration to them?
+
+                 pytest --env=qa
+                       │
+                       ▼
+              Environment Resolver
+                       │
+              ┌────────┴────────┐
+              ▼                 ▼
+             QA              STAGING
+              │                 │
+              ▼                 ▼
+        QA configuration   STG configuration
+              │
+              ▼
+       Centralized Config
+              │
+       ┌──────┼──────┐
+       ▼      ▼      ▼
+     Login  Products  Checkout
+      Page    Page      Page
+
+The key principle is:
+
+Tests and Page Objects should not care where the application is running.
+
+They should consume configuration.
+
+Think of cls as:
+
+A reference to the class itself.
+
+So:
+
+cls.environments
+
+means essentially:
+
+Config.environments
+
+in this particular call.
+
+It's not an object of the class — that's what self represents in an instance method.
+
+Remember this distinction
+self → current OBJECT / INSTANCE
+
+cls  → current CLASS
+
+For example:
+
+class Config:
+
+    environments = {...}
+
+    @classmethod
+    def get_environment(cls, environment):
+        return cls.environments[environment]
+Why this is useful in our framework
+
+We don't need to create:
+
+config = Config()
+
+every time a page needs configuration.
+
+We can centrally access:
+
+Config.get_environment("qa")
+
+That's the design reason we're using @classmethod here.
+
+pytest --env=qa
+       ↓
+pytest_addoption()
+       ↓
+Pytest registers/parses --env
+       ↓
+environment fixture
+       ↓
+request.config.getoption("--env")
+       ↓
+"qa"
+       ↓
+config fixture
+       ↓
+Config.get_environment("qa")
+       ↓
+cls.environments["qa"]
+       ↓
+QA configuration
+
+Dependency injections -- Using fixtures : Centralized config area which provisions tests
+
+M7 -
+The important distinction is:
+Retry is not a solution to flaky tests. Retry is a diagnostic/containment mechanism.

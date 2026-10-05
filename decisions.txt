@@ -1,0 +1,37 @@
+Timeouts
+---------------------
+Action timeout
+→ page.set_default_timeout()
+
+Navigation timeout
+→ page.set_default_navigation_timeout()
+
+Test timeout
+→ pytest-timeout
+
+Viewport and browser options
+-------------------------------------
+
+M8.4 — Viewport & Browser Options
+Now we're moving into browser execution configuration.
+The main things we need to control centrally are:
+Browser
+├── Chromium / Firefox / WebKit
+├── Headless / headed
+├── Viewport
+├── Slow motion (when debugging)
+└── Other browser/context options
+
+Our architecture should eventually look like:
+pytest
+  ↓
+Browser
+  ↓
+Browser Context
+  ├── viewport
+  ├── locale
+  ├── timezone
+  ├── permissions
+  └── storage state
+       ↓
+     Page

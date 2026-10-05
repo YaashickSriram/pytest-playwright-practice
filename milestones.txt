@@ -1,0 +1,39 @@
+| Milestone | Main Milestone | Exact Sub-Milestones / Scope | Skills You Are Building | Primary Revision Reference |
+|---|---|---|---|---|
+| **M1** | **Framework Foundation** | Framework structure → separation of concerns → POM → test/page layers → reusable architecture | Framework thinking, POM, SoC, maintainability | `milestones.txt` + framework code |
+| **M2** | **Test Data Management** | Test-data separation → external data → reusable data → avoid hardcoding → data-driven execution | Test-data architecture, maintainability, parameterization | `learning.txt` + `config/test_data.py` |
+| **M3** | **Environment Configuration** | QA/Staging → `--env` → environment resolution → centralized environment config | Environment management, CLI configuration, configuration design | `learning.txt` + `config.py` + `conftest.py` |
+| **M4** | **Secrets Management** | `.env` → `python-dotenv` → credentials separation → `.gitignore` → no secrets in code | Secure configuration, credential management, CI readiness | `learning.txt` + `.env` / `.gitignore` |
+| **M5** | **Configuration Injection** | Fixture-based injection → config → tests → POM → dependency flow | Pytest fixtures, dependency injection, clean framework flow | `learning.txt` + `conftest.py` |
+| **M6** | **Playwright Architecture** | Browser → Context → Page → Locator → lifecycle → fixture ownership | Playwright architecture, browser lifecycle, fixture design | `learning.txt` + `conftest.py` |
+| **M7** | **Pytest Fixture Architecture** | Fixture scopes → dependency chains → setup/teardown → hooks → failure handling → logging/diagnostics | Advanced Pytest, fixtures, hooks, observability foundations | `learning.txt` + `conftest.py` |
+| **M8** | **Browser Execution Configuration** | **M8.1** Action timeout → **M8.2** Test-level timeout → **M8.3** Navigation timeout → viewport → browser options/launch → headless/headed → browser selection → centralized execution settings → CLI/environment-driven execution → fixture → browser/context/page flow | Browser configuration, timeout engineering, execution control, centralized configuration | `learning.txt` + `config.py` + `pytest.ini` + `conftest.py` |
+| **M9** | **Failure Handling** | Failure detection → failure classification → failure artifacts → screenshots → traces → videos → failure location → exception handling | Debuggability, diagnostics, failure engineering | `learning.txt` + `conftest.py` |
+| **M10** | **Logging & Observability** | Structured logging → log levels → timestamps → framework logs → test lifecycle logs → exception logs → debugging context | Observability, production-style logging, debugging | `learning.txt` + `utils/logger.py` |
+| **M11** | **Reporting** | Test result reporting → pass/fail outcome → failure evidence → execution summary → CI-friendly reporting | Reporting, result interpretation, stakeholder visibility | `learning.txt` + reporting configuration |
+| **M12** | **Retry Strategy** | Retry design → rerun behavior → flaky-test distinction → retry limits → first-attempt vs final result | Flaky-test engineering, retry architecture, test reliability | `learning.txt` + `pytest.ini` |
+| **M13** | **Parallel Execution** | Workers → isolated execution → fixture compatibility → parallel-safe tests → resource management | Pytest-xdist, parallel execution, concurrency thinking | `learning.txt` + `pytest.ini` |
+| **M14** | **Large Test Suite Management** | Test organization → markers → selection → suite segmentation → smoke/regression → execution strategy | Test-suite architecture, scalability, execution optimization | `learning.txt` + `pytest.ini` |
+| **M15** | **Authentication Architecture** | Login abstraction → authenticated state → storage state/session → role-based access → reusable authentication | Auth architecture, session management, role-based testing | `learning.txt` + auth fixtures |
+| **M16** | **Advanced Playwright** | Advanced locators → waits → assertions → frames → popups → downloads → uploads → network handling → advanced browser capabilities | Playwright depth, robust automation | `learning.txt` + `pages/` + tests |
+| **M17** | **Framework Utilities** | Reusable utilities → waits → screenshots → data helpers → API helpers → file helpers → common framework services | Utility design, reusability, abstraction | `learning.txt` + `utils/` |
+| **M18** | **DRY & Design Principles** | DRY → SoC → centralized configuration → abstraction → avoiding duplication → maintainability → framework discipline | Engineering judgement, clean architecture, design decisions | `decisions.txt` + `learning.txt` |
+| **M19** | **Python for Production Frameworks** | OOP → typing → dataclasses → exceptions → modules/packages → decorators → context managers → clean Python | Production Python, code quality, maintainable framework code | Python revision material + `learning.txt` |
+| **M20** | **CI/CD Integration** | Pipeline execution → environment injection → test commands → artifacts → reports → failure handling → CI configuration | Jenkins/GitHub Actions, CI automation, pipeline thinking | CI/CD chat/reference + `learning.txt` |
+| **M21** | **CI Failure Engineering** | Trigger failures → job failures → test failures → environment failures → artifact failures → diagnosis → recovery strategy | CI debugging, pipeline failure analysis | CI/CD reference + `decisions.txt` |
+| **M22** | **Production Test Strategy** | Smoke/regression strategy → risk-based testing → test pyramid → release validation → environment strategy → quality gates | Senior-level QA strategy, release thinking | `learning.txt` + `decisions.txt` |
+| **M23** | **Performance & Scale Considerations** | Performance concepts → scalability → execution bottlenecks → test infrastructure → resource considerations → performance-test architecture | Performance awareness, scalability, engineering trade-offs | Performance-testing reference + `learning.txt` |
+| **M24** | **API + UI Automation Architecture** | API layer → API clients → request/response validation → schema validation → API + UI workflows → backend/frontend correlation → data integrity | API automation, Playwright API, integration testing, full-stack validation | API reference + `learning.txt` |
+| **M25** | **AI/LLM Testing Layer** | LLM testing → prompt testing → hallucination → deterministic/non-deterministic validation → evaluation → RAG → agent workflows | AI QA, LLM evaluation, RAG testing, agent testing | AI SDET reference + `learning.txt` |
+| **M26** | **Production-Grade Capstone** | Complete framework → UI + API → configuration → fixtures → auth → logging → reporting → retries → parallelism → CI → production scenarios | End-to-end SDET ownership, architecture, implementation | `milestones.txt` + `decisions.txt` + complete project |
+| **M27** | **SDET Interview Validation** | Framework architecture questions → engineering decisions → live coding → debugging → system/design scenarios → project walkthrough → senior SDET questions | Interview communication, live coding, architecture defence, confidence | Interview revision material + `learning.txt` |
+
+Needs to be done -
+
+1. test-results/
+    test_login_chromium/
+        screenshot.png
+        trace.zip
+        logs.txt
+
+2. If browser-specific behavior genuinely exists, we'd handle it centrally through framework capabilities or fixtures.
