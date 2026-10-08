@@ -1,0 +1,3 @@
+"How do you handle failures in your framework?"
+Say:
+"I handle failure artifacts centrally through a pytest hook. On failure, the framework captures the exception, failure location and visual artifacts such as screenshots and traces, storing them in a test-specific results directory. This avoids duplicating failure-handling logic across individual tests and makes CI debugging much easier."

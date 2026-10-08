@@ -28,6 +28,23 @@
 | **M26** | **Production-Grade Capstone** | Complete framework → UI + API → configuration → fixtures → auth → logging → reporting → retries → parallelism → CI → production scenarios | End-to-end SDET ownership, architecture, implementation | `milestones.txt` + `decisions.txt` + complete project |
 | **M27** | **SDET Interview Validation** | Framework architecture questions → engineering decisions → live coding → debugging → system/design scenarios → project walkthrough → senior SDET questions | Interview communication, live coding, architecture defence, confidence | Interview revision material + `learning.txt` |
 
+
+
+Completeness of each milestones -
+
+M10 — Logging & Observability ✅
+We completed:
+- Centralized logger
+- Console + file handlers
+- Log levels / timestamps
+- Test lifecycle logging
+- Attempt-aware logging
+- Exception logging
+- Failure-location logging
+- Structured failure.json
+- Persistent diagnostic evidence
+
+
 Needs to be done -
 
 1. test-results/

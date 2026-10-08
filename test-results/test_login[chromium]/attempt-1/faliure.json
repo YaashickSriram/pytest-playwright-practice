@@ -1,0 +1,7 @@
+{
+    "test": "test_login[chromium]",
+    "attempt": 1,
+    "outcome": "Failed",
+    "exception": "Locator.inner_text: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator(\".title\")\n",
+    "failure_location": "[{'file': 'C:\\\\Users\\\\anuya\\\\prod-py-playwright-sdet\\\\tests\\\\test_login.py', 'line': 14, 'function': 'test_login', 'statement': <_pytest._code.source.Source object at 0x000002BD3C565310>}, {'file': 'C:\\\\Users\\\\anuya\\\\prod-py-playwright-sdet\\\\pages\\\\login_page.py', 'line': 35, 'function': 'is_logged_in', 'statement': <_pytest._code.source.Source object at 0x000002BD3C1B5C70>}]"
+}
