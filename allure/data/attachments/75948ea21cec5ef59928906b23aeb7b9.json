@@ -1,0 +1,20 @@
+{
+    "test": "test_login[chromium]",
+    "attempt": 2,
+    "outcome": "Failed",
+    "exception": "Locator.inner_text: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator(\".title\")\n",
+    "failure_location": [
+        {
+            "file": "C:\\Users\\anuya\\prod-py-playwright-sdet\\tests\\test_login.py",
+            "line": 17,
+            "function": "test_login",
+            "statement": "assert login_page.is_logged_in() == True"
+        },
+        {
+            "file": "C:\\Users\\anuya\\prod-py-playwright-sdet\\pages\\login_page.py",
+            "line": 39,
+            "function": "is_logged_in",
+            "statement": "return self.page.locator(self.assert_header).inner_text() == \"Products\""
+        }
+    ]
+}

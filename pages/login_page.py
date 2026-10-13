@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import Page
 from utils.logger import get_logger
 
@@ -16,10 +17,12 @@ class LoginPage:
         self.page = page
         self.config = config
 
+    allure.step("Open Login Page")    
     def navigate(self):
         self.logger.info("Navigating to the login page")
         self.page.goto(self.config["base_url"])
 
+    allure.step("Login as {username}")    
     def login(self, username, password):
         self.logger.info("Attempting Login")
 
@@ -31,5 +34,6 @@ class LoginPage:
         
         #Logging records the failure; raise preserves the failure for pytest.
 
+    @allure.step("Verify Products page is shown")    
     def is_logged_in(self) -> bool:
        return self.page.locator(self.assert_header).inner_text() == "Products"

@@ -1,0 +1,25 @@
+
+ 2026-10-13 08:08:08,390 | INFO | framework | TEST START: test_login[chromium] | ATTEMPT : 1
+
+ 2026-10-13 08:08:16,180 | INFO | framework | Navigating to the login page
+
+ 2026-10-13 08:08:24,198 | INFO | framework | Attempting Login
+
+ 2026-10-13 08:08:24,569 | INFO | framework | Login button clicked Successful
+
+ 2026-10-13 08:08:35,084 | INFO | framework | TEST : test_login[chromium] | ATTEMPT : 1 | OUTCOME : FAILED | DURATION : 18.41s
+
+ 2026-10-13 08:08:35,084 | ERROR | framework | FAILED TEST: test_login[chromium] | ATTEMPT : 1
+
+ 2026-10-13 08:08:35,085 | ERROR | framework | EXCEPTION: Locator.inner_text: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator(".title")
+
+
+ 2026-10-13 08:08:35,088 | ERROR | framework | FAILURE LOCATION: {'file': 'C:\\Users\\anuya\\prod-py-playwright-sdet\\tests\\test_login.py', 'line': 17, 'function': 'test_login', 'statement': 'assert login_page.is_logged_in() == True'}
+
+ 2026-10-13 08:08:35,090 | ERROR | framework | FAILURE LOCATION: {'file': 'C:\\Users\\anuya\\prod-py-playwright-sdet\\pages\\login_page.py', 'line': 39, 'function': 'is_logged_in', 'statement': 'return self.page.locator(self.assert_header).inner_text() == "Products"'}
+
+ 2026-10-13 08:08:35,370 | INFO | framework | ####################
+
+ 2026-10-13 08:08:35,371 | INFO | framework | TEST END: test_login[chromium] | ATTEMPT : 1

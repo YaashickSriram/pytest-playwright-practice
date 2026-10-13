@@ -1,3 +1,59 @@
 "How do you handle failures in your framework?"
 Say:
-"I handle failure artifacts centrally through a pytest hook. On failure, the framework captures the exception, failure location and visual artifacts such as screenshots and traces, storing them in a test-specific results directory. This avoids duplicating failure-handling logic across individual tests and makes CI debugging much easier."
+"I handle failure artifacts centrally through a pytest hook. On failure, 
+the framework captures the exception, failure location and visual artifacts such as screenshots and traces,
+ storing them in a test-specific results directory. 
+ This avoids duplicating failure-handling logic across individual tests and makes CI debugging much easier."
+
+ M11, Part 2: Questions this milestone answers
+
+These come straight from your screenshots. Read each answer, then say it out loud in your own words. Don’t memorise the wording.
+
+Q1. “How do you generate reports with embedded screenshots?” (Ness, which asked about Extent reports)
+
+“I use Allure with pytest. During the run, allure-pytest writes raw results, and the Allure CLI builds the report afterwards. Failure evidence is attached centrally in a pytest_runtest_makereport hookwrapper, so no test has to handle it itself. On failure, it attaches a screenshot and a structured failure.json with the exception and failure location. Page-object methods use @allure.step, so the report reads like the test flow and shows exactly which step failed.”
+
+Follow-up they’ll often ask: “Why Allure and not a basic HTML report?”
+
+“Steps, attachments, a retries view, and feature/severity grouping. A lead can filter for critical failures only. A plain HTML report shows pass/fail; Allure shows what happened.”
+
+Q2. “How do you publish execution reports inside CI pipelines?” (Deloitte)
+
+“The pipeline runs pytest, which writes to allure-results. A following step runs allure generate, and the report is published as a build artifact, through the Jenkins Allure plugin or as a static site on GitHub Pages. That step runs even when tests fail, because a failed run is exactly when you need the report.”
+
+Be honest about where you are: right now you’d add “In my framework the report is generated locally today; CI publishing is the next stage I’m building.” We’ll make that real in M20.
+
+Q3. “Which automation metrics do you track?” (Amazon, Cognizant: “build signal metrics”)
+
+“Five things:
+
+Pass rate, but on its own it can mislead.
+Flaky rate: tests that failed first and passed on rerun. My framework logs every attempt separately, so I can see this.
+Suite duration trend: if it keeps growing, feedback slows down.
+Failure categories: product bug, test bug, or environment issue.
+Defect escape rate: bugs found in production that the suite should have caught. This is the one that tells you whether automation is actually working.”
+
+Key line to remember: “Pass rate measures the suite. Escape rate measures the product.”
+
+Q4. “How do you show automation ROI to leads?” (Deloitte)
+
+“Not by the number of test cases. I show three things: regression time saved per release (manual hours vs suite runtime), defects caught before release, and how fast teams get feedback on a PR. A lead cares about release confidence and speed, not test counts.”
+
+M11, Part 3: Scenario drill
+
+Scenario (Amazon): “Your automation suite has a 98% pass rate, but critical bugs are still reaching production. What could be wrong?”
+
+Answer it with the 5-step structure:
+
+Step	What you say
+Clarify	“First I’d check which bugs escaped and which features they were in. Are they in areas we automate at all?”
+Isolate	“There are usually four causes: coverage gap (the critical flow isn’t automated); weak assertions (the test passes but checks the wrong thing, e.g. only that the page loaded, not that the total is correct); retries hiding failures (passes on attempt 3 and counts as green); environment mismatch (QA data or config differs from prod).”
+Evidence	“I’d map each escaped bug to the suite. Was there a test? Did it run? Did it pass, and on which attempt? The per-attempt artifacts and the Allure retries view answer that.”
+Fix	“Add or strengthen tests for the escaped flows, starting with the riskiest ones, and fix assertions that check presence instead of correctness.”
+Prevent	“Track defect escape rate and flaky rate next to pass rate. Report ‘passed on retry’ separately from ‘passed’. Make critical-path tests a hard quality gate.”
+
+The insight that impresses leads:
+
+“A high pass rate with escaped bugs usually means the tests are checking that the app works, not that it works correctly.”
+
+Look at your own is_logged_in(): it checks that the header says “Products”. That proves login happened. It doesn’t prove the right products, prices, or user are shown. That’s exactly the kind of gap this question is about, and you can use it as your own example.
