@@ -1,6 +1,7 @@
 .env
 __pycache__/
 test-results/
+allure/
 allure-results/
 allure-report/
 reports/

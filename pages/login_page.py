@@ -17,12 +17,12 @@ class LoginPage:
         self.page = page
         self.config = config
 
-    allure.step("Open Login Page")    
+    @allure.step("Open Login Page")    
     def navigate(self):
         self.logger.info("Navigating to the login page")
         self.page.goto(self.config["base_url"])
 
-    allure.step("Login as {username}")    
+    @allure.step("Login as {username}")    
     def login(self, username, password):
         self.logger.info("Attempting Login")
 
